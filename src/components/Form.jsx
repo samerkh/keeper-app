@@ -18,8 +18,8 @@ function Form(props) {
 
   function submitNote(event) {
     if (note.title || note.content) {
-      setNote({ title: "", content: "" })
       props.onClick(note)
+      setNote({ title: "", content: "" })
     }
     event.preventDefault();
   }
