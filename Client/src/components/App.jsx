@@ -3,18 +3,33 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import Form from "./Form";
+import axios from 'axios';
+
+const qs = require('qs');
+
+const url = 'http://localhost:9000';
+const options = {
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+}
 
 function App() {
   const [notes, setNotes] = React.useState([]);
+  fetchNotes();
 
-  function addNote(note) {
-    setNotes([...notes, note]);
+  async function addNote(note) {
+    const { data: notes } = await axios.post(url+'/addnote', qs.stringify(note), options);
+    setNotes(notes);
   }
 
-  function deleteNote(id) {
-    setNotes(notes.filter((note, i) => i !== id))
+  async function deleteNote(id) {  
+    const {data: notes} = await axios.post(url+'/removenote', qs.stringify({id}), options);
+    setNotes(notes)
   }
 
+  async function fetchNotes(){
+    const {data: notes} = await axios.get(url+'/');
+    setNotes(notes);
+  }
 
   return (
     <div>
