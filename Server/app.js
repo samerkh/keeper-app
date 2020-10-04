@@ -21,7 +21,7 @@ const noteModel = mongoose.model("note", noteSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
+app.get('/notes', (req, res) => {
     noteModel.find((err, notes) => {
         if (!err) {
             res.send(notes);
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/addnote', (req, res) => {
+app.post('/notes/addnote', (req, res) => {
     const data = req.body;
 
     const note = new noteModel({
@@ -40,14 +40,14 @@ app.post('/addnote', (req, res) => {
     });
 
     note.save();
-    res.redirect('/');
+    res.redirect('/notes');
 });
 
-app.post('/removenote', (req, res) => {
+app.post('/notes/removenote', (req, res) => {
     const id = req.body.id;
     noteModel.deleteOne({ _id: id }, err => {
         if (!err) {
-            res.redirect('/');
+            res.redirect('/notes');
         } else{
             res.send(err);
         }
