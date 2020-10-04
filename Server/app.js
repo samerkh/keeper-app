@@ -5,7 +5,7 @@ const path = require('path');
 
 const app = express();
 const buildPath = path.join(__dirname, '..', 'Client', 'build');
-const port = 9000;
+const port = process.env.PORT || 9000;
 const url = "mongodb+srv://admin-samer:v7ZS5uAzJt5n7Omn@cluster0.d3em4.mongodb.net";
 const options = {
     useNewUrlParser: true,
@@ -24,7 +24,7 @@ const noteModel = mongoose.model("note", noteSchema);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(buildPath));
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
 })
 
@@ -55,7 +55,7 @@ app.post('/notes/removenote', (req, res) => {
     noteModel.deleteOne({ _id: id }, err => {
         if (!err) {
             res.redirect('/notes');
-        } else{
+        } else {
             res.send(err);
         }
     });
