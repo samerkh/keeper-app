@@ -22,10 +22,10 @@ const noteSchema = new mongoose.Schema({
 const noteModel = mongoose.model("note", noteSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(buildPath, 'index.html')));
+app.use(express.static(buildPath));
 
 app.get('/', (req, res)=>{
-    res.sendFile()
+    res.sendFile(path.join(buildPath, 'index.html'));
 })
 
 app.get('/notes', (req, res) => {

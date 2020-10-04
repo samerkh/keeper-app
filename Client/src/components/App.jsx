@@ -17,17 +17,17 @@ function App() {
   fetchNotes();
 
   async function addNote(note) {
-    const { data: notes } = await axios.post(url + '/addnote', qs.stringify(note), options);
+    const { data: notes } = await axios.post(url + '/notes/addnote', qs.stringify(note), options);
     setNotes(notes);
   }
 
   async function deleteNote(id) {
-    const { data: notes } = await axios.post(url + '/removenote', qs.stringify({ id }), options);
+    const { data: notes } = await axios.post(url + '/notes/removenote', qs.stringify({ id }), options);
     setNotes(notes)
   }
 
   async function fetchNotes() {
-    const { data: notes } = await axios.get(url + '/');
+    const { data: notes } = await axios.get(url + '/notes');
     setNotes(notes);
   }
 
