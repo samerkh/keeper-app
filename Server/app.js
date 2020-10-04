@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
+const buildPath = path.join(__dirname, '..', 'Client', 'build');
 const port = 9000;
 const url = "mongodb://localhost:27017";
 const options = {
@@ -20,6 +22,11 @@ const noteSchema = new mongoose.Schema({
 const noteModel = mongoose.model("note", noteSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(buildPath, 'index.html')));
+
+app.get('/', (req, res)=>{
+    res.sendFile()
+})
 
 app.get('/notes', (req, res) => {
     noteModel.find((err, notes) => {
