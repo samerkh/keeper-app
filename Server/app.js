@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const buildPath = path.join(__dirname, '..', 'Client', 'build');
 const port = 9000;
-const url = "mongodb://localhost:27017";
+const url = "mongodb+srv://admin-samer:v7ZS5uAzJt5n7Omn@cluster0.d3em4.mongodb.net";
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true
